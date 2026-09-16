@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ÉLÉVÉ | Viste tu esencia</title>
+  <meta name="description" content="ÉLÉVÉ — Viste tu esencia. Nueva colección de moda contemporánea. Proyecto demostrativo creado por NEXORA." />
+  <meta property="og:title" content="ÉLÉVÉ | Viste tu esencia" />
+  <meta property="og:description" content="Piezas contemporáneas. Elegancia atemporal. Descubre la nueva colección ÉLÉVÉ." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#F7F2E8" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect fill='%23F7F2E8' width='64' height='64'/><text x='32' y='42' text-anchor='middle' font-family='Georgia' font-size='22' fill='%23111111'>É</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #111111;
+      --ivory: #F7F2E8;
+      --gold: #C8A96B;
+      --sand: #D8C7AD;
+      --char: #292929;
+      --white: #FFFFFF;
+      --paper: #EFE9DE;
+      --line: rgba(17,17,17,.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Manrope, sans-serif;
+      background: var(--ivory);
+      color: var(--ink);
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    button, input { font-family: inherit; }
+    a { color: inherit; text-decoration: none; }
+    .serif { font-family: "Cormorant Garamond", Georgia, serif; }
+    .container { width: min(1240px, calc(100% - 48px)); margin-inline: auto; }
+
+    :focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
+
+    /* PRELOADER */
+    #preloader {
+      position: fixed; inset: 0; z-index: 4000;
+      background: var(--ivory);
+      display: grid; place-items: center;
+      transition: opacity .7s ease, visibility .7s ease;
+    }
+    #preloader.gone { opacity: 0; visibility: hidden; }
+    .pre-mark {
+      font-family: "Cormorant Garamond", serif;
+      letter-spacing: .42em;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      animation: fadeIn .6s ease both;
+    }
+    .pre-sub {
+      margin-top: 10px;
+      letter-spacing: .38em;
+      font-size: .65rem;
+      color: var(--char);
+      text-align: center;
+      animation: fadeIn .8s .15s ease both;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* HEADER */
+    .site-header {
+      position: sticky; top: 0; z-index: 80;
+      height: 72px;
+      display: flex; align-items: center;
+      background: transparent;
+      transition: background .35s ease, box-shadow .35s ease;
+    }
+    .site-header.solid {
+      background: rgba(247,242,232,.94);
+      box-shadow: 0 1px 0 var(--line);
+    }
+    .hdr {
+      width: min(1240px, calc(100% - 32px));
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+    .logo {
+      font-family: "Cormorant Garamond", serif;
+      letter-spacing: .36em;
+      font-size: 1.35rem;
+      justify-self: start;
+    }
+    .nav-c {
+      display: flex; gap: 26px; justify-content: center;
+    }
+    .nav-c a {
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+    .nav-c a:hover { color: var(--gold); }
+    .hdr-r {
+      display: flex; gap: 4px; justify-self: end; align-items: center;
+    }
+    .icon-btn {
+      width: 40px; height: 40px;
+      border: 0; background: none; cursor: pointer;
+      display: grid; place-items: center;
+      color: var(--ink);
+      position: relative;
+    }
+    .icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .badge {
+      position: absolute; top: 6px; right: 4px;
+      min-width: 15px; height: 15px; padding: 0 3px;
+      border-radius: 99px;
+      background: var(--ink); color: var(--ivory);
+      font-size: 9px; line-height: 15px; text-align: center;
+    }
+    .menu-btn { display: none; }
+    .logo-m { display: none; }
+
+    /* DRAWERS / PANELS */
+    .overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(17,17,17,.4);
+      opacity: 0; visibility: hidden;
+      transition: .3s ease;
+    }
+    .overlay.show { opacity: 1; visibility: visible; }
+    .drawer {
+      position: fixed; top: 0; right: 0; z-index: 220;
+      width: min(420px, 100%);
+      height: 100%;
+      background: var(--ivory);
+      transform: translateX(100%);
+      transition: transform .4s ease;
+      display: flex; flex-direction: column;
+    }
+    .drawer.open { transform: none; }
+    .drawer-h {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 24px; border-bottom: 1px solid var(--line);
+      letter-spacing: .22em; font-size: .72rem; text-transform: uppercase;
+    }
+    .drawer-b { padding: 16px 24px; overflow: auto; flex: 1; }
+    .x { border: 0; background: none; font-size: 1.4rem; cursor: pointer; line-height: 1; }
+
+    .nav-m {
+      position: fixed; inset: 0; z-index: 210;
+      background: var(--ivory);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center; gap: 22px;
+      opacity: 0; visibility: hidden; transition: .35s ease;
+    }
+    .nav-m.open { opacity: 1; visibility: visible; }
+    .nav-m a {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem; letter-spacing: .12em;
+    }
+
+    /* SEARCH BAR */
+    .search-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 230;
+      background: var(--ivory);
+      padding: 18px 24px 16px;
+      transform: translateY(-110%);
+      transition: transform .35s ease;
+      border-bottom: 1px solid var(--line);
+    }
+    .search-bar.open { transform: none; }
+    .search-row { display: flex; gap: 12px; align-items: center; max-width: 1240px; margin: 0 auto; }
+    .search-row input {
+      flex: 1; border: 0; background: transparent;
+      font-size: 1rem; padding: 8px 0; outline: none;
+      border-bottom: 1px solid var(--ink);
+    }
+    #searchHits { max-width: 1240px; margin: 12px auto 0; }
+
+    /* HERO — full bleed campaign */
+    .campaign {
+      position: relative;
+      height: calc(100svh - 72px);
+      min-height: 560px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .campaign img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 18%;
+    }
+    .campaign-shade {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(17,17,17,.38) 0%, rgba(17,17,17,.08) 55%, transparent 100%);
+    }
+    .campaign-txt {
+      position: absolute; left: 7vw; bottom: 11vh;
+      color: #fff; max-width: 520px;
+    }
+    .campaign-txt .k {
+      letter-spacing: .4em; font-size: .68rem; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .campaign-txt h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3.4rem, 9vw, 6.6rem);
+      letter-spacing: .22em; font-weight: 500; line-height: .95;
+      margin: 8px 0 6px;
+    }
+    .campaign-txt p.sl {
+      font-family: "Cormorant Garamond", serif;
+      letter-spacing: .2em; font-size: 1.05rem; margin-bottom: 26px;
+    }
+    .linkish {
+      display: inline-block;
+      font-size: .68rem; letter-spacing: .24em; text-transform: uppercase;
+      border-bottom: 1px solid currentColor; padding-bottom: 4px;
+      color: #fff;
+    }
+    .linkish:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* MANIFESTO */
+    .manifesto {
+      padding: 120px 0;
+      text-align: center;
+    }
+    .manifesto h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 500; font-style: italic;
+    }
+    .manifesto p {
+      max-width: 520px; margin: 18px auto 0;
+      color: var(--char); font-weight: 300;
+    }
+
+    /* CATEGORY STRIP */
+    .tri {
+      display: grid; grid-template-columns: 1.15fr 1fr 1fr;
+      min-height: 62vh;
+    }
+    .tri a {
+      position: relative; overflow: hidden; display: block; min-height: 340px;
+    }
+    .tri img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; }
+    .tri a:hover img { transform: scale(1.05); }
+    .tri figcaption {
+      position: absolute; left: 28px; bottom: 28px; color: #fff;
+    }
+    .tri figcaption strong {
+      display: block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem; font-weight: 500; letter-spacing: .08em;
+    }
+    .tri figcaption span {
+      font-size: .66rem; letter-spacing: .22em; text-transform: uppercase;
+    }
+
+    /* COLLECTION */
+    #coleccion { padding: 88px 0 40px; }
+    .sec-k {
+      letter-spacing: .36em; font-size: .66rem; text-transform: uppercase; color: var(--gold);
+    }
+    .sec-h {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 500; margin: 6px 0 8px;
+    }
+    .filters {
+      display: flex; gap: 8px; overflow-x: auto;
+      margin: 32px 0 28px; padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .filters button {
+      flex: 0 0 auto;
+      border: 0; background: none; cursor: pointer;
+      padding: 8px 4px; margin-right: 18px;
+      letter-spacing: .2em; font-size: .68rem; text-transform: uppercase;
+      color: var(--char); border-bottom: 1px solid transparent;
+    }
+    .filters button.on {
+      color: var(--ink); border-bottom-color: var(--gold);
+    }
+
+    /* Editorial masonry-ish catalog */
+    .shop {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px 16px;
+    }
+    .item {
+      background: transparent;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .item.show { opacity: 1; transform: none; }
+    .item:nth-child(1) { grid-column: span 7; }
+    .item:nth-child(2) { grid-column: span 5; }
+    .item:nth-child(3), .item:nth-child(4),
+    .item:nth-child(5), .item:nth-child(6) { grid-column: span 3; }
+    .item:nth-child(7) { grid-column: span 5; }
+    .item:nth-child(8) { grid-column: span 7; }
+    .item:nth-child(n+9) { grid-column: span 4; }
+    .item .pic {
+      position: relative; overflow: hidden;
+      background: var(--paper);
+      aspect-ratio: 3/4;
+    }
+    .item:nth-child(1) .pic, .item:nth-child(8) .pic { aspect-ratio: 16/11; }
+    .item .pic img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+    .item:hover .pic img { transform: scale(1.04); }
+    .item .meta { padding: 12px 0 4px; position: relative; }
+    .item .meta::after {
+      content: ""; position: absolute; left: 0; top: 0;
+      width: 0; height: 1px; background: var(--gold);
+      transition: width .35s ease;
+    }
+    .item:hover .meta::after { width: 36px; }
+    .item .cat { font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+    .item h3 { font-family: "Cormorant Garamond", serif; font-size: 1.35rem; font-weight: 500; }
+    .item .row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .item .open {
+      border: 0; background: none; cursor: pointer;
+      font-size: .64rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--char);
+    }
+    .item .open:hover { color: var(--gold); }
+    .heart {
+      position: absolute; top: 10px; right: 10px; z-index: 2;
+      width: 34px; height: 34px; border: 0; background: rgba(247,242,232,.7);
+      cursor: pointer; display: grid; place-items: center;
+    }
+    .heart svg { width: 15px; height: 15px; }
+    .heart.on svg { fill: var(--ink); }
+
+    /* LOOKBOOK magazine */
+    #lookbook { padding: 80px 0; }
+    .mag {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-auto-rows: 220px;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .mag figure:nth-child(1) { grid-row: span 2; }
+    .mag figure:nth-child(4) { grid-column: 2 / 4; }
+    .mag figure {
+      overflow: hidden; cursor: pointer; position: relative; background: var(--paper);
+    }
+    .mag img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+    .mag figure:hover img { transform: scale(1.05); }
+
+    /* EDITORIAL BAND */
+    .band {
+      display: grid; grid-template-columns: 1.15fr .85fr;
+      min-height: 70vh;
+    }
+    .band img { width: 100%; height: 100%; object-fit: cover; min-height: 420px; }
+    .band-copy {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 64px 8vw 64px 56px;
+      background: var(--white);
+    }
+    .band-copy h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+      font-weight: 500; line-height: 1.15;
+    }
+    .band-copy p { margin-top: 18px; color: var(--char); max-width: 380px; font-weight: 300; }
+
+    /* BENEFITS */
+    .perks {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    }
+    .perk { padding: 48px 32px; }
+    .perk + .perk { border-left: 1px solid var(--line); }
+    .perk h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.4rem; font-weight: 500; margin: 10px 0 8px;
+    }
+    .perk p { font-size: .9rem; color: var(--char); font-weight: 300; }
+    .perk svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.4; }
+
+    /* FOOTER */
+    footer {
+      padding: 72px 0 28px;
+      background: var(--ink); color: var(--ivory);
+    }
+    .ft {
+      display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 40px; padding-bottom: 40px;
+      border-bottom: 1px solid rgba(247,242,232,.12);
+    }
+    .ft .logo { color: #fff; }
+    .ft h4 { letter-spacing: .22em; font-size: .66rem; text-transform: uppercase; margin-bottom: 14px; color: var(--gold); }
+    .ft a { display: block; font-size: .85rem; opacity: .78; margin: 6px 0; }
+    .ft a:hover { opacity: 1; color: var(--gold); }
+    .legal { padding-top: 22px; font-size: .72rem; opacity: .55; line-height: 1.7; }
+
+    /* WA */
+    .wa {
+      position: fixed; right: 18px; bottom: 18px; z-index: 90;
+      height: 48px; padding: 0 16px 0 14px;
+      background: var(--ink); color: var(--ivory);
+      display: flex; align-items: center; gap: 10px;
+      font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
+    }
+    .wa svg { width: 18px; height: 18px; fill: currentColor; }
+    .wa span { display: inline; }
+
+    /* PRODUCT MODAL */
+    .modal {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(17,17,17,.45);
+      display: grid; place-items: center;
+      opacity: 0; visibility: hidden; transition: .3s;
+      padding: 20px;
+    }
+    .modal.open { opacity: 1; visibility: visible; }
+    .sheet {
+      width: min(980px, 100%);
+      background: var(--ivory);
+      display: grid; grid-template-columns: 1fr 1fr;
+      max-height: 92vh; overflow: auto;
+      position: relative;
+    }
+    .sheet-pic img { width: 100%; height: 100%; object-fit: cover; min-height: 380px; }
+    .sheet-info { padding: 36px 32px; }
+    .sheet-info h2 { font-family: "Cormorant Garamond", serif; font-size: 2.1rem; font-weight: 500; }
+    .colors, .sizes { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 20px; }
+    .dot { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--line); cursor: pointer; }
+    .dot.on { outline: 1px solid var(--ink); outline-offset: 3px; }
+    .sz {
+      min-width: 40px; height: 36px; border: 1px solid var(--line);
+      background: none; cursor: pointer; font-size: .75rem;
+    }
+    .sz.on { background: var(--ink); color: var(--ivory); border-color: var(--ink); }
+    .actions { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+    .btn-solid {
+      background: var(--ink); color: var(--ivory); border: 0;
+      padding: 14px 18px; cursor: pointer;
+      letter-spacing: .18em; font-size: .68rem; text-transform: uppercase;
+    }
+    .btn-line {
+      background: none; border: 1px solid var(--ink);
+      padding: 14px 18px; cursor: pointer;
+      letter-spacing: .18em; font-size: .68rem; text-transform: uppercase;
+    }
+    .modal-x {
+      position: absolute; top: 12px; right: 16px; z-index: 2;
+      border: 0; background: var(--ivory); width: 36px; height: 36px; cursor: pointer; font-size: 1.3rem;
+    }
+
+    /* LIGHTBOX */
+    .lb {
+      position: fixed; inset: 0; z-index: 320;
+      background: rgba(17,17,17,.9);
+      display: grid; place-items: center;
+      opacity: 0; visibility: hidden; transition: .3s;
+    }
+    .lb.open { opacity: 1; visibility: visible; }
+    .lb img { max-width: min(900px, 92vw); max-height: 82vh; object-fit: contain; }
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border: 0; background: transparent;
+      color: #fff; font-size: 1.8rem; cursor: pointer;
+    }
+    .lb-prev { left: 16px; } .lb-next { right: 16px; }
+    .lb-x { position: absolute; top: 16px; right: 20px; color: #fff; background: none; border: 0; font-size: 2rem; cursor: pointer; }
+
+    .bag-row {
+      display: grid; grid-template-columns: 64px 1fr auto;
+      gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: center;
+    }
+    .bag-row img { width: 64px; height: 80px; object-fit: cover; }
+    .muted { font-size: .78rem; color: var(--char); }
+    .empty { padding: 24px 0; color: var(--char); }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      .nav-c { display: none; }
+      .menu-btn { display: grid; }
+      .logo { display: none; }
+      .logo-m { display: block; justify-self: center; font-family: "Cormorant Garamond", serif; letter-spacing: .32em; font-size: 1.25rem; }
+      .hdr { grid-template-columns: 40px 1fr auto; }
+      .tri { grid-template-columns: 1fr; }
+      .band { grid-template-columns: 1fr; }
+      .band-copy { padding: 48px 28px; }
+      .perks { grid-template-columns: 1fr; }
+      .perk + .perk { border-left: 0; border-top: 1px solid var(--line); }
+      .ft { grid-template-columns: 1fr; }
+      .sheet { grid-template-columns: 1fr; }
+      .shop { grid-template-columns: 1fr 1fr; }
+      .item, .item:nth-child(n) { grid-column: auto; }
+      .item:nth-child(1) .pic, .item:nth-child(8) .pic { aspect-ratio: 3/4; }
+      .mag { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
+      .mag figure:nth-child(1) { grid-row: span 2; }
+      .mag figure:nth-child(4) { grid-column: auto; }
+      .wa span { display: none; }
+      .wa { width: 48px; padding: 0; justify-content: center; }
+      .campaign-txt { left: 24px; right: 24px; }
+    }
+    @media (max-width: 560px) {
+      .container { width: calc(100% - 32px); }
+      .shop { grid-template-columns: 1fr; }
+      .mag { grid-template-columns: 1fr; }
+      .mag figure:nth-child(1) { grid-row: auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .item, .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="preloader">
+    <div>
+      <div class="pre-mark">ÉLÉVÉ</div>
+      <div class="pre-sub">VISTE TU ESENCIA.</div>
+    </div>
+  </div>
+
+  <header class="site-header" id="header">
+    <div class="hdr">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <a class="logo" href="#inicio">ÉLÉVÉ</a>
+      <nav class="nav-c" aria-label="Principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#coleccion" data-go="all">Colección</a>
+        <a href="#coleccion" data-go="mujer">Mujer</a>
+        <a href="#coleccion" data-go="hombre">Hombre</a>
+        <a href="#coleccion" data-go="accesorios">Accesorios</a>
+      </nav>
+      <a class="logo logo-m" href="#inicio">ÉLÉVÉ</a>
+      <div class="hdr-r">
+        <button class="icon-btn" id="searchOpen" aria-label="Buscar">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+        </button>
+        <button class="icon-btn" id="favOpen" aria-label="Favoritos">
+          <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10z"/></svg>
+          <span class="badge" id="favBadge" hidden>0</span>
+        </button>
+        <button class="icon-btn" id="bagOpen" aria-label="Bolsa">
+          <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V7a3 3 0 0 1 6 0v1"/></svg>
+          <span class="badge" id="bagBadge" hidden>0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav-m" id="navM" aria-label="Menú móvil">
+    <a href="#inicio">Inicio</a>
+    <a href="#coleccion" data-go="all">Colección</a>
+    <a href="#coleccion" data-go="mujer">Mujer</a>
+    <a href="#coleccion" data-go="hombre">Hombre</a>
+    <a href="#coleccion" data-go="accesorios">Accesorios</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <div class="search-bar" id="searchBar">
+    <div class="search-row">
+      <input type="search" id="q" placeholder="Buscar una pieza…" aria-label="Buscar productos" />
+      <button class="x" id="searchClose" aria-label="Cerrar búsqueda">×</button>
+    </div>
+    <div id="searchHits"></div>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="drawer" id="bagDrawer" aria-label="Bolsa">
+    <div class="drawer-h"><span>Bolsa</span><button class="x" data-close aria-label="Cerrar">×</button></div>
+    <div class="drawer-b" id="bagList"></div>
+  </aside>
+  <aside class="drawer" id="favDrawer" aria-label="Favoritos">
+    <div class="drawer-h"><span>Favoritos</span><button class="x" data-close aria-label="Cerrar">×</button></div>
+    <div class="drawer-b" id="favList"></div>
+  </aside>
+
+  <section class="campaign" id="inicio">
+    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=2000&q=80" alt="Campaña editorial ÉLÉVÉ: modelo con vestuario contemporáneo en luz natural" />
+    <div class="campaign-shade"></div>
+    <div class="campaign-txt">
+      <div class="k">New Collection</div>
+      <h1>ÉLÉVÉ</h1>
+      <p class="sl">VISTE TU ESENCIA.</p>
+      <a class="linkish" href="#coleccion">Descubrir colección</a>
+    </div>
+  </section>
+
+  <section class="manifesto">
+    <div class="container">
+      <h2 class="reveal">“Moda que habla de ti.”</h2>
+      <p class="reveal">Piezas contemporáneas creadas para quienes entienden que el estilo está en los detalles.</p>
+    </div>
+  </section>
+
+  <section class="tri" aria-label="Categorías">
+    <a href="#coleccion" data-go="mujer">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80" alt="Colección mujer ÉLÉVÉ" />
+      <figcaption><strong>Mujer</strong><span>Descubrir →</span></figcaption>
+    </a>
+    <a href="#coleccion" data-go="hombre">
+      <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80" alt="Colección hombre ÉLÉVÉ" />
+      <figcaption><strong>Hombre</strong><span>Descubrir →</span></figcaption>
+    </a>
+    <a href="#coleccion" data-go="accesorios">
+      <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80" alt="Accesorios ÉLÉVÉ" />
+      <figcaption><strong>Accesorios</strong><span>Descubrir →</span></figcaption>
+    </a>
+  </section>
+
+  <section id="coleccion">
+    <div class="container">
+      <p class="sec-k">New Collection</p>
+      <h2 class="sec-h">Encuentra piezas que hablan de ti.</h2>
+      <div class="filters" role="tablist">
+        <button class="on" data-filter="all">Todo</button>
+        <button data-filter="mujer">Mujer</button>
+        <button data-filter="hombre">Hombre</button>
+        <button data-filter="accesorios">Accesorios</button>
+      </div>
+      <div class="shop" id="shop"></div>
+    </div>
+  </section>
+
+  <section id="lookbook">
+    <div class="container">
+      <p class="sec-k">Lookbook</p>
+      <h2 class="sec-h">Una colección. Diferentes formas de expresarte.</h2>
+      <div class="mag" id="mag"></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1400&q=80" alt="Editorial ÉLÉVÉ: la moda como lenguaje" />
+    <div class="band-copy">
+      <p class="sec-k">Manifiesto</p>
+      <h2>La moda también es una forma de hablar sin palabras.</h2>
+      <p>Descubre piezas pensadas para acompañar tu personalidad, tu ritmo y tu manera de vivir.</p>
+    </div>
+  </section>
+
+  <section class="perks" aria-label="Beneficios">
+    <article class="perk">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 19c1.2-3 3.5-4.5 7-4.5S17.8 16 19 19"/></svg>
+      <h3>Atención personalizada</h3>
+      <p>Piezas seleccionadas y asesoría para encontrar tu estilo.</p>
+    </article>
+    <article class="perk">
+      <svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg>
+      <h3>Consulta fácil</h3>
+      <p>Resuelve tus dudas directamente por WhatsApp.</p>
+    </article>
+    <article class="perk">
+      <svg viewBox="0 0 24 24"><path d="M12 3l2.2 6.6H21l-5.4 4 2.1 6.4L12 16.6 6.3 20l2.1-6.4L3 9.6h6.8z"/></svg>
+      <h3>Estilo atemporal</h3>
+      <p>Diseños pensados para combinar elegancia y personalidad.</p>
+    </article>
+  </section>
+
+  <footer id="contacto">
+    <div class="container">
+      <div class="ft">
+        <div>
+          <div class="logo">ÉLÉVÉ</div>
+          <p style="margin-top:10px;letter-spacing:.18em;font-size:.72rem;">VISTE TU ESENCIA.</p>
+          <p style="margin-top:16px;opacity:.6;font-size:.85rem;">Marca ficticia de demostración.<br>Bogotá, Colombia</p>
+        </div>
+        <div>
+          <h4>Explorar</h4>
+          <a href="#coleccion" data-go="all">Colección</a>
+          <a href="#coleccion" data-go="mujer">Mujer</a>
+          <a href="#coleccion" data-go="hombre">Hombre</a>
+          <a href="#coleccion" data-go="accesorios">Accesorios</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <a href="#" id="ftWa">WhatsApp</a>
+          <p class="muted" style="margin-top:12px;color:inherit;opacity:.6">Proyecto demostrativo creado por NEXORA.</p>
+          <p class="muted" style="color:inherit;opacity:.6">Impulsa tu negocio al mundo digital.</p>
+        </div>
+      </div>
+      <div class="legal">ÉLÉVÉ es una marca ficticia utilizada como demostración de portafolio. Precios ilustrativos en COP. © NEXORA</div>
+    </div>
+  </footer>
+
+  <a class="wa" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.3-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 .9-3.6-.2-.4A9.9 9.9 0 1 1 12 22zm5.4-7.4c-.3-.1-1.7-.8-2-.9s-.5-.1-.7.2-.8 1-.9 1.1-.3.2-.6.1c-1.6-.8-2.6-1.8-2.9-2.1s0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5s0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.5c-.2 0-.5.1-.8.4s-1 1-1 2.5 1.1 2.9 1.2 3.1 2.1 3.2 5.1 4.5c.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4s-.3-.2-.6-.3z"/></svg>
+    <span>¿Hablamos?</span>
+  </a>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="sheet">
+      <button class="modal-x" id="modalX" aria-label="Cerrar">×</button>
+      <div class="sheet-pic"><img id="mImg" alt="" /></div>
+      <div class="sheet-info">
+        <p class="cat" id="mCat"></p>
+        <h2 id="mName"></h2>
+        <p id="mPrice" style="margin:8px 0 14px"></p>
+        <p id="mDesc" class="muted"></p>
+        <p class="sec-k" style="margin-top:22px">Colores</p>
+        <div class="colors" id="mColors"></div>
+        <p class="sec-k">Tallas</p>
+        <div class="sizes" id="mSizes"></div>
+        <div class="actions">
+          <button class="btn-solid" id="mWa">Consultar por WhatsApp</button>
+          <button class="btn-line" id="mBag">Agregar a la bolsa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lb" id="lb">
+    <button class="lb-x" id="lbX" aria-label="Cerrar">×</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Anterior">‹</button>
+    <img id="lbImg" alt="Lookbook ÉLÉVÉ" />
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Siguiente">›</button>
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = "573000000000";
+    const wa = (t) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t)}`;
+    const cop = (n) => "$" + n.toLocaleString("es-CO") + " COP";
+
+    const PRODUCTS = [
+      { id:"w1", name:"Blazer Essential", price:189000, cat:"mujer",
+        img:"https://images.unsplash.com/photo-1591369822096-ffd140ec948f?auto=format&fit=crop&w=1000&q=80",
+        desc:"Corte preciso y caída contemporánea. Una base para construir looks de día y de ciudad." },
+      { id:"w2", name:"Vestido Élan", price:169000, cat:"mujer",
+        img:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80",
+        desc:"Línea limpia y movimiento contenido. Pensado para ocasiones que piden presencia." },
+      { id:"w3", name:"Pantalón Tailored", price:129000, cat:"mujer",
+        img:"https://images.unsplash.com/photo-1506629082955-511b1aa78283?auto=format&fit=crop&w=1000&q=80",
+        desc:"Sastrería suave. Alarga la silueta sin perder comodidad." },
+      { id:"w4", name:"Camisa Signature", price:99000, cat:"mujer",
+        img:"https://images.unsplash.com/photo-1485968579580-b6d095937a18?auto=format&fit=crop&w=1000&q=80",
+        desc:"Algodón fluido y cuello relajado. El lienzo de la colección." },
+      { id:"m1", name:"Blazer Homme", price:219000, cat:"hombre",
+        img:"https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=1000&q=80",
+        desc:"Hombro natural y solapa estrecha. Autoridad sin rigidez." },
+      { id:"m2", name:"Camisa ÉLÉVÉ", price:109000, cat:"hombre",
+        img:"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1000&q=80",
+        desc:"Popelina fina, cuello italiano. Detalle diario con oficio." },
+      { id:"m3", name:"Pantalón Urban Tailor", price:139000, cat:"hombre",
+        img:"https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=1000&q=80",
+        desc:"Caída urbana y proporción precisa para el ritmo de la ciudad." },
+      { id:"m4", name:"Chaqueta Essential", price:199000, cat:"hombre",
+        img:"https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1000&q=80",
+        desc:"Capa de transición. Textura mate y silueta desestructurada." },
+      { id:"a1", name:"Bolso ÉLÉVÉ", price:159000, cat:"accesorios",
+        img:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80",
+        desc:"Estructura contenida y hardware discreto. Atemporal." },
+      { id:"a2", name:"Cinturón Signature", price:79000, cat:"accesorios",
+        img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1000&q=80",
+        desc:"Piel lisa y hebilla mínima. Cierra el look con un gesto." },
+      { id:"a3", name:"Gafas ÉLÉVÉ", price:89000, cat:"accesorios",
+        img:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=80",
+        desc:"Acetato ligero y lentes degradé. Un acento de carácter." }
+    ];
+
+    const COLORS = [
+      { n:"Negro", c:"#111111" },
+      { n:"Marfil", c:"#F7F2E8" },
+      { n:"Beige", c:"#D8C7AD" },
+      { n:"Champagne", c:"#C8A96B" }
+    ];
+    const SIZES = ["XS","S","M","L","XL"];
+
+    const LOOKS = [
+      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1200&q=80"
+    ];
+
+    let filter = "all";
+    let current = null;
+    let selColor = "Negro";
+    let selSize = "M";
+    let lbIndex = 0;
+
+    const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+    const save = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+    let favs = load("eleve_favs", []);
+    let bag = load("eleve_bag", []);
+
+    const shop = document.getElementById("shop");
+
+    function renderShop(list) {
+      shop.innerHTML = "";
+      list.forEach((p, i) => {
+        const el = document.createElement("article");
+        el.className = "item";
+        el.innerHTML = `
+          <div class="pic">
+            <button class="heart ${favs.includes(p.id)?"on":""}" data-fav="${p.id}" aria-label="Favorito">
+              <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10z" stroke="#111" fill="${favs.includes(p.id)?"#111":"none"}"/></svg>
+            </button>
+            <img src="${p.img}" alt="${p.name} ÉLÉVÉ" />
+          </div>
+          <div class="meta">
+            <p class="cat">${p.cat}</p>
+            <div class="row">
+              <h3>${p.name}</h3>
+              <span>${cop(p.price)}</span>
+            </div>
+            <button class="open" data-open="${p.id}">Ver producto →</button>
+          </div>`;
+        shop.appendChild(el);
+        requestAnimationFrame(() => setTimeout(() => el.classList.add("show"), 40 * i));
+      });
+    }
+    function applyFilter(f) {
+      filter = f;
+      document.querySelectorAll(".filters button").forEach(b => b.classList.toggle("on", b.dataset.filter === f));
+      const list = f === "all" ? PRODUCTS : PRODUCTS.filter(p => p.cat === f);
+      renderShop(list);
+    }
+    applyFilter("all");
+
+    document.querySelectorAll(".filters button").forEach(b => {
+      b.addEventListener("click", () => applyFilter(b.dataset.filter));
+    });
+    document.querySelectorAll("[data-go]").forEach(a => {
+      a.addEventListener("click", () => {
+        applyFilter(a.dataset.go);
+        document.getElementById("navM").classList.remove("open");
+      });
+    });
+
+    shop.addEventListener("click", (e) => {
+      const fav = e.target.closest("[data-fav]");
+      const open = e.target.closest("[data-open]");
+      if (fav) { toggleFav(fav.dataset.fav); applyFilter(filter); updateBadges(); }
+      if (open) openModal(open.dataset.open);
+    });
+
+    function toggleFav(id) {
+      favs = favs.includes(id) ? favs.filter(x => x !== id) : [...favs, id];
+      save("eleve_favs", favs);
+    }
+
+    function openModal(id) {
+      current = PRODUCTS.find(p => p.id === id);
+      if (!current) return;
+      selColor = "Negro"; selSize = "M";
+      document.getElementById("mImg").src = current.img;
+      document.getElementById("mImg").alt = current.name;
+      document.getElementById("mCat").textContent = current.cat;
+      document.getElementById("mName").textContent = current.name;
+      document.getElementById("mPrice").textContent = cop(current.price);
+      document.getElementById("mDesc").textContent = current.desc;
+      document.getElementById("mColors").innerHTML = COLORS.map(c =>
+        `<button class="dot${c.n===selColor?" on":""}" data-c="${c.n}" style="background:${c.c}" aria-label="${c.n}"></button>`
+      ).join("");
+      document.getElementById("mSizes").innerHTML = SIZES.map(s =>
+        `<button class="sz${s===selSize?" on":""}" data-s="${s}">${s}</button>`
+      ).join("");
+      document.getElementById("modal").classList.add("open");
+    }
+    document.getElementById("mColors").addEventListener("click", e => {
+      const b = e.target.closest("[data-c]"); if (!b) return;
+      selColor = b.dataset.c;
+      document.querySelectorAll("#mColors .dot").forEach(x => x.classList.toggle("on", x.dataset.c === selColor));
+    });
+    document.getElementById("mSizes").addEventListener("click", e => {
+      const b = e.target.closest("[data-s]"); if (!b) return;
+      selSize = b.dataset.s;
+      document.querySelectorAll("#mSizes .sz").forEach(x => x.classList.toggle("on", x.dataset.s === selSize));
+    });
+    document.getElementById("mWa").addEventListener("click", () => {
+      if (!current) return;
+      window.open(wa(`Hola, ÉLÉVÉ. Estoy interesado en ${current.name}. Me gustaría consultar disponibilidad, talla y color.`), "_blank");
+    });
+    document.getElementById("mBag").addEventListener("click", () => {
+      if (!current) return;
+      bag.push({ id: current.id, name: current.name, price: current.price, img: current.img, color: selColor, size: selSize });
+      save("eleve_bag", bag);
+      updateBadges();
+      closeAll();
+      openDrawer("bagDrawer");
+      renderBag();
+    });
+
+    function renderBag() {
+      const box = document.getElementById("bagList");
+      if (!bag.length) { box.innerHTML = `<p class="empty">Tu bolsa está vacía.</p>`; return; }
+      const total = bag.reduce((s, i) => s + i.price, 0);
+      box.innerHTML = bag.map((i, idx) => `
+        <div class="bag-row">
+          <img src="${i.img}" alt="${i.name}" />
+          <div><strong>${i.name}</strong><div class="muted">${i.size} · ${i.color}<br>${cop(i.price)}</div></div>
+          <button class="x" data-rm="${idx}" aria-label="Quitar">×</button>
+        </div>`).join("") +
+        `<p style="margin:16px 0">Subtotal ${cop(total)}</p>
+         <button class="btn-solid" id="bagWa" style="width:100%">Consulta tu selección por WhatsApp</button>`;
+      box.querySelectorAll("[data-rm]").forEach(b => b.addEventListener("click", () => {
+        bag.splice(+b.dataset.rm, 1); save("eleve_bag", bag); updateBadges(); renderBag();
+      }));
+      document.getElementById("bagWa")?.addEventListener("click", () => {
+        const lines = bag.map(i => `• ${i.name} (${i.size}, ${i.color})`).join("\n");
+        window.open(wa(`Hola, ÉLÉVÉ. Quiero consultar esta selección:\n${lines}`), "_blank");
+      });
+    }
+    function renderFavs() {
+      const box = document.getElementById("favList");
+      const items = PRODUCTS.filter(p => favs.includes(p.id));
+      if (!items.length) { box.innerHTML = `<p class="empty">Aún no hay favoritos.</p>`; return; }
+      box.innerHTML = items.map(p => `
+        <div class="bag-row">
+          <img src="${p.img}" alt="${p.name}" />
+          <div><strong>${p.name}</strong><div class="muted">${cop(p.price)}</div>
+          <button class="open" data-open="${p.id}">Ver producto →</button></div>
+        </div>`).join("");
+      box.querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", () => openModal(b.dataset.open)));
+    }
+    function updateBadges() {
+      const fb = document.getElementById("favBadge");
+      const bb = document.getElementById("bagBadge");
+      fb.hidden = !favs.length; fb.textContent = favs.length;
+      bb.hidden = !bag.length; bb.textContent = bag.length;
+    }
+    updateBadges();
+
+    /* Search */
+    const searchBar = document.getElementById("searchBar");
+    const q = document.getElementById("q");
+    document.getElementById("searchOpen").addEventListener("click", () => { searchBar.classList.add("open"); q.focus(); });
+    document.getElementById("searchClose").addEventListener("click", () => { searchBar.classList.remove("open"); });
+    q.addEventListener("input", () => {
+      const v = q.value.trim().toLowerCase();
+      const hits = document.getElementById("searchHits");
+      if (!v) { hits.innerHTML = ""; return; }
+      const found = PRODUCTS.filter(p => p.name.toLowerCase().includes(v));
+      hits.innerHTML = found.length
+        ? found.map(p => `<div class="bag-row"><img src="${p.img}" alt=""><div><strong>${p.name}</strong><div class="muted">${cop(p.price)}</div><button class="open" data-open="${p.id}">Ver producto →</button></div></div>`).join("")
+        : `<p class="empty">No encontramos piezas con ese nombre.</p>`;
+      hits.querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", () => openModal(b.dataset.open)));
+    });
+
+    /* Drawers */
+    function openDrawer(id) {
+      document.getElementById("overlay").classList.add("show");
+      document.getElementById(id).classList.add("open");
+    }
+    function closeAll() {
+      document.getElementById("overlay").classList.remove("show");
+      document.querySelectorAll(".drawer").forEach(d => d.classList.remove("open"));
+      document.getElementById("modal").classList.remove("open");
+      document.getElementById("lb").classList.remove("open");
+      document.getElementById("navM").classList.remove("open");
+      document.getElementById("searchBar").classList.remove("open");
+    }
+    document.getElementById("bagOpen").addEventListener("click", () => { renderBag(); openDrawer("bagDrawer"); });
+    document.getElementById("favOpen").addEventListener("click", () => { renderFavs(); openDrawer("favDrawer"); });
+    document.getElementById("overlay").addEventListener("click", closeAll);
+    document.querySelectorAll("[data-close], #modalX").forEach(b => b.addEventListener("click", closeAll));
+    document.getElementById("modal").addEventListener("click", e => { if (e.target.id === "modal") closeAll(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); });
+
+    document.getElementById("menuBtn").addEventListener("click", () => {
+      document.getElementById("navM").classList.toggle("open");
+    });
+    document.querySelectorAll("#navM a").forEach(a => a.addEventListener("click", () => document.getElementById("navM").classList.remove("open")));
+
+    /* Lookbook */
+    const mag = document.getElementById("mag");
+    LOOKS.forEach((src, i) => {
+      const f = document.createElement("figure");
+      f.innerHTML = `<img src="${src}" alt="Lookbook ÉLÉVÉ ${i+1}" />`;
+      f.addEventListener("click", () => openLb(i));
+      mag.appendChild(f);
+    });
+    function openLb(i) {
+      lbIndex = i;
+      document.getElementById("lbImg").src = LOOKS[lbIndex];
+      document.getElementById("lb").classList.add("open");
+    }
+    document.getElementById("lbX").addEventListener("click", closeAll);
+    document.getElementById("lbPrev").addEventListener("click", () => openLb((lbIndex + LOOKS.length - 1) % LOOKS.length));
+    document.getElementById("lbNext").addEventListener("click", () => openLb((lbIndex + 1) % LOOKS.length));
+
+    /* Header + reveal + WA */
+    window.addEventListener("scroll", () => {
+      document.getElementById("header").classList.toggle("solid", scrollY > 12);
+    }, { passive: true });
+
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); }), { threshold: .2 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    const general = "Hola, ÉLÉVÉ. Quiero conocer la colección.";
+    document.getElementById("waFloat").href = wa(general);
+    document.getElementById("ftWa").href = wa(general);
+
+    window.addEventListener("load", () => {
+      setTimeout(() => document.getElementById("preloader").classList.add("gone"), 900);
+    });
+  </script>
+</body>
+</html>
